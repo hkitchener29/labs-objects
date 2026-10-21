@@ -7,14 +7,39 @@ from lab_classes import User, Tweet
 
 
 def build_feed():
-    # Create your accounts and posts, then call their methods.
-    # Return the two lists: return users, posts
-    pass
+    alice = User('alice')
+    bob = User('bob')
+    users = [alice, bob]
+
+    posts = [
+        Tweet('alice', 'Game night at my place Friday #Games #BringSnacks'),
+        Tweet('bob', 'I will bring the chips and salsa'),
+        Tweet('alice', 'Anyone have a copy of Catan? #Games'),
+    ]
+
+    # A small story: bob follows alice, changes his mind, then follows again.
+    alice.follow()
+    bob.follow()
+    bob.unfollow()
+    alice.follow()
+
+    # The invitation gets two likes and one is taken back.
+    posts[0].like()
+    posts[0].like()
+    posts[0].unlike()
+    posts[2].like()
+
+    return users, posts
 
 
 def main():
-    # Call build_feed and display the returned objects and hashtags.
-    pass
+    users, posts = build_feed()
+    for user in users:
+        print(user, '-', user.followers, 'followers')
+    for post in posts:
+        print(post)
+        print('  likes:', post.likes)
+        print('  hashtags:', post.hashtags())
 
 
 if __name__ == '__main__':
